@@ -1,1 +1,2 @@
-# scigen-report
+# SciGen.Report
+
