@@ -10,4 +10,8 @@ The following PHP dependencies are required and we recomend to introduce with co
 
 We also use Clamp.js 0.5.1 (included with this code as minimal version, provided under WTFPL), available at https://github.com/josephschmitt/Clamp.js
 
+### Observations:
+
+The config.php file depicts the constants used in the code. The database constants need to be adjustsed to the adequate values.
+
 **NOTICE**: The base source code has been edited to hide potentially sensitive information that may compromise the security of The Service. Data that has been hidden include, but might not be limited to: database structure, hashing algorithms and hashing salt, email addresses, and access keys.
