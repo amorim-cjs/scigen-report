@@ -12,6 +12,7 @@ We also use Clamp.js 0.5.1 (included with this code as minimal version, provided
 
 ### Observations:
 
-The config.php file depicts the constants used in the code. The database constants need to be adjustsed to the adequate values.
+- The config.php file defines the constants used in the code. The database constants need to be adjustsed to the values used.
 
-**NOTICE**: The base source code has been edited to hide potentially sensitive information that may compromise the security of The Service. Data that has been hidden include, but might not be limited to: database structure, hashing algorithms and hashing salt, email addresses, and access keys.
+
+**NOTICE**: The base source code has been edited to hide potentially sensitive information that may compromise the security of The Service. Data that has been hidden include, but might not be limited to: database structure, hashing algorithms and hashing salt, email addresses, and access keys. If commiting new code, do not change these values.
