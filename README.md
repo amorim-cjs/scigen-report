@@ -1,6 +1,6 @@
 # SciGen.Report
 
-SciGen.Report is a website that allows users to easily share their results of complete or partial reproduction of scientific papers, either for positive or negative resutls.
+<a href="https://scigen.report">SciGen.Report</a> is a website that allows users to easily share their results of complete or partial reproduction of scientific papers, either for positive or negative resutls.
 
 ### Dependencies:
 
