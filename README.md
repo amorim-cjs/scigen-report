@@ -12,6 +12,7 @@ SciGen.Report *is*:
 - Open Access to submit and read submissions
 - Objective - You must state your result (success or not and to what degree) with optional comments (currently limited to 500 characters)
 - Flexible - You can edit or delete your comments if you want/need in the future
+- Non-restrictive - Just make your review clear, and every field is welcome!
 
 SciGen.Report has its core values in **diversity**, **integrity**, and **transparency**. We welcome various contributions from various researchers, from students who are reproducing protocols as part of their studies to long-career PIs delving inot a complex project. Feel free to reach us if you have any need you think we could help.
 
