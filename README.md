@@ -1,6 +1,19 @@
 # SciGen.Report
 
-<a href="https://scigen.report">SciGen.Report</a> is a website that allows users easily to share their results of complete or partial reproduction of scientific papers, either for positive or negative resutls.
+<a href="https://scigen.report">SciGen.Report</a> is a website that allows users easily to share their results of complete or partial reproduction of scientific papers, either for positive or negative resutls. You can submit a short comment together with a summary of your replication results of any published research, through a simple light form, so everyone can know about any extra care needed to reproduce results! And you may also use it to appeal to what you have done and show your expertise with more than just your publications!
+
+SciGen.Report is **not**:
+- A journal
+- Peer-reviewed
+- A discussion forum
+
+SciGen.Report *is*:
+- Post peer-review
+- Open Access to submit and read submissions
+- Objective - You must state your result (success or not and to what degree) with optional comments (currently limited to 500 characters)
+- Flexible - You can edit or delete your comments if you want/need in the future
+
+SciGen.Report has its core values in **diversity**, **integrity**, and **transparency**. We welcome various contributions from various researchers, from students who are reproducing protocols as part of their studies to long-career PIs delving inot a complex project. Feel free to reach us if you have any need you think we could help.
 
 ### Dependencies:
 
