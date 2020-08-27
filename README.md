@@ -16,7 +16,7 @@ SciGen.Report *is*:
 
 SciGen.Report has its core values in **diversity**, **integrity**, and **transparency**. We welcome various contributions from various researchers, from students who are reproducing protocols as part of their studies to long-career PIs delving inot a complex project. Feel free to reach us if you have any need you think we could help.
 
-### Dependencies:
+### Dependencies
 
 The following PHP dependencies are required and we recomend to introduce with composer:
 - PHPMailer ^6.0
@@ -24,7 +24,13 @@ The following PHP dependencies are required and we recomend to introduce with co
 
 We also use Clamp.js 0.5.1 (included with this code as minimal version, provided under WTFPL), available at https://github.com/josephschmitt/Clamp.js
 
-### Observations:
+### Observations
 
 - The config.php file defines the constants used in the code. The database constants need to be adjustsed to the values used.
 - **NOTICE**: The base source code has been edited to hide potentially sensitive information that may compromise the security of The Service. Data that has been hidden include, but might not be limited to: database structure, hashing algorithms and hashing salt, email addresses, and access keys. If commiting new code, do not change these values.
+
+## SciGen.Report Open Innitiative Contributors
+
+SciGen.Report is an open source project maintained by CJS Inc. under Mozilla Public License 2.0. Contributors that make or have made it possible are listed below, with major contributors acknowledged in paranthesis:
+
+- Cassio Amorim (Creator)
