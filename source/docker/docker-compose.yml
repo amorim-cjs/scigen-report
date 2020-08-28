@@ -7,6 +7,8 @@ services:
                                 ./php
                 volumes:
                         - ../open:/var/www/html
+                        - ./apache/docker-php.conf:/etc/apache2/conf-enabled/docker-php.conf
+                        - ./apache/.htaccess:/var/www/html/.htaccess
                 ports:
                         - 80:80
 
