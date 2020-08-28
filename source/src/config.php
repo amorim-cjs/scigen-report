@@ -1,11 +1,12 @@
 <?php
-define('LIBRARY', 'lib/');
+define('LIBRARY', 'scigen/lib/');
 define('BASE_URL', 'http://localhost/');
 
 define('DB_VENDOR', 'mysql');
 define('DB_HOST', 'localhost');
+define('DB_PORT', '3306');
 define('DB_NAME', 'database');
-define('DB_USER', 'user');
-define('DB_PWD', 'password');
+define('DB_USER', 'root');
+define('DB_PWD', 'top-secret');
 
 ?>
