@@ -1,7 +1,7 @@
 <?php
+session_start();
 echo "<!DOCTYPE html>", PHP_EOL, '<html lang="en">', PHP_EOL;
-
-session_start();?>
+?>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="<?=BASE_URL . 'assets/loadCSS/styles.css'?>">
