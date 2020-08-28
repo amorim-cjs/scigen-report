@@ -3,10 +3,9 @@ version: "3"
 services:
         web:
                 build:
-                        context:
-                                ./php
+                        context: .
                 volumes:
-                        - ../open:/var/www/html
+                        - ../src:/var/www/html
                         - ./apache/docker-php.conf:/etc/apache2/conf-enabled/docker-php.conf
                         - ./apache/.htaccess:/var/www/html/.htaccess
                 ports:
