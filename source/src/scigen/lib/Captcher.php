@@ -2,7 +2,7 @@
 
 class Captcher{
 	public function __construct(){
-		$this->keyv2 = '6L2***';
+		$this->keyv2 = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'; // Google test secret key
 		$this->keyv3 = '6L3***';
 	}
 
