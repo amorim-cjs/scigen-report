@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+        web:
+                build:
+                        context: .
+                volumes:
+                        - ../src:/var/www/html
+                        - ./apache/docker-php.conf:/etc/apache2/conf-enabled/docker-php.conf
+                        - ./apache/.htaccess:/var/www/html/.htaccess
+                ports:
+                        - 80:80
+
+
+        db:
+                image: mariadb:latest
+                volumes:
+                        - ../PeerRep.sql:/docker-entrypoint-initdb.d/PeerRep.sql
+                ports:
+                        - 3306:3306
+                environment:
+                        - MYSQL_DATABASE=PeerRep
+                        - MYSQL_USER=dock
+                        - MYSQL_PASSWORD=topsecret
+                        - MYSQL_ROOT_PASSWORD=topsecret

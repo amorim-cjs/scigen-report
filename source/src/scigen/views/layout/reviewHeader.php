@@ -1,7 +1,7 @@
 <?php
+session_start();
 echo "<!DOCTYPE html>", PHP_EOL, '<html lang="en">', PHP_EOL;
-
-session_start();?>
+?>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="<?=BASE_URL . 'assets/loadCSS/styles.css'?>">
@@ -14,10 +14,6 @@ html,body{
   bottom:25px;
   height: 90%;
 	background-color: rgb(230,230,230);
-}
-
-.nobullet{
-  list-style-type: none;
 }
 
 .box{
@@ -102,10 +98,11 @@ function leftCorner(){
 
 </script>
 
+
 <script src="https://www.google.com/recaptcha/api.js?render=key"></script>
 <script>
 grecaptcha.ready(function() {
-	grecaptcha.execute('key3', {action: 'search'}).then(function(token) {
+	grecaptcha.execute('key', {action: 'get_review'}).then(function(token) {
 		const xhr = new XMLHttpRequest();
 		xhr.open("POST", "search/validateAccess/" + token, true);
 		xhr.send();
@@ -113,20 +110,90 @@ grecaptcha.ready(function() {
 });
 </script>
 <style>
-.red{
-  color:red;
+html, body{
+width: 100%;
+height: 100%;
+margin: 0;
 }
-.report-list{
-  padding-top:5px;
-  padding-bottom:16px;
+#reviews{
+  position: relative;
+  min-height:150px;
+  min-width:320px;
+  left: 15px;
+  margin-top: 50px;
+}
+
+#review-board{
+  position: absolute;
+  top: 5px;
+  padding-bottom: 50px;
+}
+
+#add-review{
+  position: relative;
+  margin-top: -500px;
+}
+
+
+@media screen and (min-width:601px){
+	#review-board{margin-left:7%;max-width:95%;}	
+}
+@media screen and (max-width:600px) {
+	#review-board{width:95%;}
+h2{font-size:24px}h3{font-size:21px}h4{font-size:18px}h5{font-size:16px}
+	}
+@media screen and (max-height:600px) {
+h2{font-size:24px}h3{font-size:21px}h4{font-size:18px}h5{font-size:16px}
+	}
+
+@media screen and (min-width:1501px){
+	.w3-image{max-width:550px;}
 }
 </style>
 
+<script src="<?=BASE_URL . 'assets/scripts/clamp.js'?>"></script>
+<script>
+function formatAuthors(){
+	var header = document.getElementById('paper-title');
+	const lines = screen.height < 450 ? 2 : 3;
+	$clamp(header, {clamp: lines});
+	
+	var h = header.clientHeight;
+	var authors =  document.getElementById('paper-authors');
+	authors.style.top = h - 70 + "px";
+	document.getElementById('paper').style.right = "100%";
+	document.getElementById('paper-info').style.height = h + authors.clientHeight - 20 + "px";
+
+
+}
+
+function copyLink(ref){
+<?php
+	$reviewAddress = BASE_URL . 'reviews/get?doi=' . $_GET['doi'];
+	echo 'const lnk = "' . $reviewAddress . '#" + ref;' . PHP_EOL;
+?>
+	if (typeof navigator.clipboard !== "undefined"){
+		navigator.clipboard.writeText(lnk);
+	} else {
+	const el = document.createElement('input');
+	el.value = lnk;
+	el.setAttribute('readonly', '');
+	el.style.position = 'absolute';
+	el.style.left = '-9999 px';
+	document.body.appendChild(el);
+	el.select();
+	document.execCommand("copy");
+	document.body.removeChild(el);
+	} 
+ 
+}
+</script>
+
 
 </head>
-<body>
+<body onload="formatAuthors();" onresize="formatAuthors();">
 
-<div class="w3-bar w3-theme-l4" style="position:fixed; top: 0px; z-index: 2;">
+<div class="w3-bar w3-theme-l4" style="position:fixed; top: 0px; z-index: 2;min-height: 70px;">
   <div id="logo" class="w3-left" style="padding-left:8px;" >
   <p><a class=" w3-center" href="<?=BASE_URL?>"><img src="<?php echo BASE_URL. 'assets/images/logo_title.png';?>" class="w3-image" width="125" alt="SciGen.Report"></a></p>
   </div>

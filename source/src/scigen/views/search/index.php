@@ -26,7 +26,7 @@ function hintDOI(){
 	style="max-width:750px; margin:auto;"> <br>
 
 <div class="w3-container">
-<span id="DOIhint" class="w3-animate-opacity" >&nbsp; Try: <a href="<?=BASE_URL . 'reviews/get?doi=10.1063/1.1823034'?>">10.1063/1.1823034</a><br><br></span>
+<span id="DOIhint" class="w3-animate-opacity" >&nbsp; Try: <a href="<?=BASE_URL . 'reviews/get?doi=10.1038/171737a0'?>">10.1038/171737a0</a><br><br></span>
 </div>
       <input class="w3-button w3-white w3-large" type="submit" name="submit" value="Can you reproduce it?">
     </form>

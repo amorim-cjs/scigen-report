@@ -10,7 +10,7 @@ function agreed(){
 
 var onloadCallback =  grecaptcha.ready(() => {
 	grecaptcha.render('captcha-box', {
-		'sitekey' : 'key'
+		'sitekey' : '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' // Google test key
 	});
 });
 </script>
