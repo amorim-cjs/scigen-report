@@ -15,7 +15,7 @@ class Users extends Base_Controller{
 		}
 
 		$captchaValid = isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response']) ?
-					$this->captchaValidation($_POST['g-recaptcha-response']) :
+					$this->captcher->validateV2($_POST['g-recaptcha-response']) :
 					false;
 
 		if (!$captchaValid){
@@ -48,16 +48,17 @@ class Users extends Base_Controller{
 
 		}
 
-		$user['hash'] = $this->generateHash();
+        // For Sprint: dropped hash column
+		//$user['hash'] = $this->generateHash();
 
 		$this->view->id = $valid ? $this->model->addUser($user) : NULL;
 
 		// Case success:
 		if ($this->view->id > 0){
-			$sent = $this->mailValidation($user['email'], 
+            $sent = TRUE; /* $this->mailValidation($user['email'], 
 				$user['given_name'].' '.$user['family_name'],
 				$this->view->id, 
-				$user['hash']);
+				$user['hash']);*/
 
 
 			$parsed = parse_url($_POST['from']);

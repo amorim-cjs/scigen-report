@@ -5,12 +5,15 @@ class Users_Model extends Base_Model{
 	}
 
 	public function addUser($user){
-		$sqlString = "SELECT fn_addUser(:username, :password, 
+		$sqlString = /*"SELECT fn_addUser(:username, :password, 
 			:given_name, :family_name, :affiliation, :email,
-			:birthday, :expertise, :hash);";
+			:birthday, :expertise, :hash);";*/
+        "INSERT INTO users (username, password, given_name, family_name, 
+        affiliation, email, birthday, expertise) VALUES
+        (:username, :password, :given_name, :family_name, 
+         :affiliation, :email, :birthday, :expertise);";
 
 		$stmt = $this->db->prepare($sqlString);
-
 
 		foreach ($user as $key=>$value){
 			$stmt->bindValue(":$key", "$value");
