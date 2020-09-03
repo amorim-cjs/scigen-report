@@ -39,3 +39,5 @@ SciGen.Report is an open source project maintained by CJS Inc. under Mozilla Pub
 - Helena Pérez Valle (UX support, scoring advice)
 - Emmy Tsang (UX support)
 - Giuliano Maciocci (UX support, vizualization advice)
+- Daniel Nüst (CODECHECK-related advice)
+- Daniel Haarhoff (Docker support)
