@@ -34,7 +34,7 @@ We also use Clamp.js 0.5.1 (included with this code as minimal version, provided
 SciGen.Report is an open source project maintained by CJS Inc. under Mozilla Public License 2.0. Contributors that make or have made it possible are listed below, with major contributions acknowledged in paranthesis:
 
 - Cassio Amorim (Creator)
-- Veethika Mishra (UX support)
+- Veethika Mishra (UX/UI support)
 - Ryan Davies (UX support, marketing advice)
 - Helena Pérez Valle (UX support, scoring advice)
 - Emmy Tsang (UX support)
