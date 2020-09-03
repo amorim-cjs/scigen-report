@@ -3,16 +3,17 @@
 <div id="getReviews" style="position:absolute; width:100%;">
 
 <?php 
-$paper = $this->paper_data;
+//$paper = $this->paper_data;
 if(isset($this->paper_data)):
 ?>
 
 <!-- Overview of paper reproducibility -->
   <div id="paper">
-    <div id="paper-info" class="w3-panel w3-theme-light w3-padding" style="width:100%;">
-      <div  class="w3-panel w3-theme-light" style="position:fixed; top:50px; left: 0;width:100%;z-index:2;"><h2><b id="paper-title">
+    <div id="paper-info" class="w3-panel w3-theme-l5 w3-padding" style="width:100%;">
+      <div id="paper-summary" class="w3-panel w3-theme-l5" style="position:fixed; top:50px; left: 0;width:100%;z-index:2;"><h2><b id="paper-title">
         <?= $paper['title'] ?></b></h2></div>
-      <div id="paper-authors" class="w3-panel w3-theme-light" style="position:relative; width:100%;">
+        <div class="w3-panel w3-row" style="position:relative; width:100%;">
+      <div id="paper-authors" class="w3-col m9 w3-theme-l5" >
 	<h2><?= $paper['authors'] ?></h2>
         <h3><?php
 	  $reference="<i>". $paper['journal'] . '</i> ';
@@ -34,24 +35,39 @@ if(isset($this->paper_data)):
           <input type="hidden" name="issue" value="<?=$paper['issue']?>">
           <input type="hidden" name="page" value="<?=$paper['page']?>">
 <?php if ($_SESSION['loggedin'] && $_SESSION['email_status'] != "verified"){
-echo '<span class="w3-btn w3-theme"><b>Validate your email</b> address to edit paper information</span>';
+echo '<span class="w3-btn w3-theme"><b>Confirm your email</b>to suggest changes</span>';
 	}
 elseif ($_SESSION['loggedin'] && $_SESSION['email_status'] == "verified") {
-	echo '<input type="submit" value="Correct paper information" class="w3-btn w3-theme">';
+	echo '<input type="submit" value="Suggest changes" class="w3-btn w3-theme">';
 }
 else {
 	echo '<a href="'.BASE_URL.'login/index?doi='.$this->doi.'">',
-		'<span class="w3-btn w3-theme">Login to correct paper information</span></a>';
+		'<span class="w3-btn w3-theme">Login to suggest changes</span></a>';
 }
 ?>
+          <a href="'.BASE_URL.'papers/upvote?doi='.$this->doi.'">
+          <span class="w3-btn w3-theme">I'm interested</span></a>
         </form>
         </div>
+
+      <div id="tags" style="padding-top:25px;">
+        <span class="w3-button w3-theme-l2" style="height: 30px;">Biology</span>
+        <span class="w3-button w3-theme-l2" style="height: 30px;">Biomolecule</span>
+        <span class="w3-button w3-theme-l2" style="height: 30px;">DNA</span>
       </div>
 
+      </div>
+<div class="w3-col m2">
+<canvas id="repCanvas" class="chartjs" width="400" height="400" style="float: right;"></canvas>
+</div>
+<script>generateChart();</script>
+    </div>
     </div>
 
     <div id="paper-rep" style="padding-bottom: 40px;">
-      <div  class="w3-row-padding">
+       <!-- <canvas id="repCanvas" class="chartjs" width="400" height="400"></canvas> -->
+        
+      <!--<div  class="w3-row-padding">
         <div class="w3-col m1"><p> </p></div>
           <div class="w3-col m3 w3-card 
           <?= ($paper['rep_success'] > $paper['rep_fail']) ? 'w3-green' : 'w3-pale-green'; ?> "
@@ -83,7 +99,7 @@ else {
 	  </h4></div>
 	    </div>
           </div>
-        </div>
+        </div> -->
 <?php endif;?>
     </div>
   </div>
@@ -127,16 +143,18 @@ foreach ($this->reviews_data as $review) :
 
 <?php if (!$userHasReviewed && isset($this->paper_data)):?>
   <div id="add-review" class="w3-row-padding" style="width:99%;max-width:1600px;max-height:62px;margin:auto;top:-235px;">
-    <div class="w3-col ">
+    <div class="w3-col">
     <form action="../reviews/register" method="post"  
 	<?php if ($_SESSION['email_status'] != 'verified') 
 echo 'onsubmit="alert('."'You must login with a verified email address to submit reports.'".'); return false;"';?>
     >
 	<input type="hidden" name="doi" value="<?=$this->doi?>">
-	<input class="w3-btn w3-block w3-yellow w3-xxlarge" style="border-radius:25px;min-width:300px;max-height:62px;" type="submit" name="add" value="Add your report">
+	<input class="w3-btn w3-block w3-deep-orange w3-xlarge " style="border-radius:25px;max-width:300px;max-height:62px;margin:auto;" type="submit" name="add" value="Add your report">
       </form>
     </div>
+
   </div>
+
 <?php endif;?>
 
 </div>
