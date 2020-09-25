@@ -2,7 +2,7 @@ Thank you for the interesting in contributing to SciGen.Report!
 
 This is an open source project that aims to foster communication around reproducing scientific papers. Contributions will be acknowledged on the readme file of this project.
 
-If you want to contribute, here are the first steps to take:
+## How to contribute
 
 1. Check whether there are open issues and code branches. While it is unlikely that no issue or code branch aside from Master is open, if none are available you can open an issue asking about current development.
 
