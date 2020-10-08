@@ -160,12 +160,14 @@ function formatAuthors(){
 	$clamp(header, {clamp: lines});
 	
 	var h = header.clientHeight;
-	var authors =  document.getElementById('paper-authors');
-	authors.style.top = h - 70 + "px";
+	var summary = document.getElementById('paper-summary');
+	summary.style.top = h - 70 + "px";
 	document.getElementById('paper').style.right = "100%";
     const chartHeight = document.getElementById('repCanvas').style.height;
-	document.getElementById('paper-info').style.height = h + authors.clientHeight - 20 + chart + "px";
+	document.getElementById('paper-info').style.height = h + summary.clientHeight - 20 + chart + "px";
 
+  var chart = document.getElementById('rep-chart');
+  chart.style.paddingTop += 30 + "px";
 
 }
 
@@ -191,11 +193,11 @@ function copyLink(ref){
 <?php $paper = $this->paper_data;?>
 function generateChart(){
     const ctx = document.getElementById('repCanvas');
-    const fsize = 30;
     var width =  window.innerWidth
     || document.documentElement.clientWidth
     || document.body.clientWidth;
-    const show = width > 600;
+    const show = width > 1000 || width < 600;
+    const fsize = width > 1200 || width < 600 ? 12 : 9;
     //ctx.style.width  = 400 + "px";
     //ctx.style.height = 400 + "px";
    const chart = new Chart(ctx, {
@@ -239,8 +241,8 @@ function generateChart(){
                            display: show,
                            position : 'bottom',
                            labels: {
-                           boxWidth : 12
-                           //fontSize : fsize
+                           boxWidth : 10,
+                           fontSize : fsize
                            }
                 },
                 tooltips: {

@@ -10,9 +10,9 @@ if(isset($this->paper_data)):
 <!-- Overview of paper reproducibility -->
   <div id="paper">
     <div id="paper-info" class="w3-panel w3-theme-l5 w3-padding" style="width:100%;">
-      <div id="paper-summary" class="w3-panel w3-theme-l5" style="position:fixed; top:50px; left: 0;width:100%;z-index:2;"><h2><b id="paper-title">
+      <div id="paper-title-wrap" class="w3-panel w3-theme-l5" style="position:fixed; top:50px; left: 0;width:100%;z-index:2;"><h2><b id="paper-title">
         <?= $paper['title'] ?></b></h2></div>
-        <div class="w3-panel w3-row" style="position:relative; width:100%;">
+        <div id="paper-summary" class="w3-panel w3-row" style="position:relative; width:100%;">
       <div id="paper-authors" class="w3-col m9 w3-theme-l5" >
 	<h2><?= $paper['authors'] ?></h2>
         <h3><?php
@@ -57,7 +57,7 @@ else {
       </div>
 
       </div>
-<div class="w3-col m2">
+<div id="rep-chart" class="w3-col m2">
 <canvas id="repCanvas" class="chartjs" width="400" height="400" style="float: right;"></canvas>
 </div>
 <script>generateChart();</script>
