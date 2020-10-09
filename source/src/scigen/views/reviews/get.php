@@ -35,7 +35,7 @@ if(isset($this->paper_data)):
           <input type="hidden" name="issue" value="<?=$paper['issue']?>">
           <input type="hidden" name="page" value="<?=$paper['page']?>">
 <?php if ($_SESSION['loggedin'] && $_SESSION['email_status'] != "verified"){
-echo '<span class="w3-btn w3-theme"><b>Confirm your email</b>to suggest changes</span>';
+echo '<span class="w3-btn w3-theme"><b>Confirm your email</b> to suggest changes</span>';
 	}
 elseif ($_SESSION['loggedin'] && $_SESSION['email_status'] == "verified") {
 	echo '<input type="submit" value="Suggest changes" class="w3-btn w3-theme">';
