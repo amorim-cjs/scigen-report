@@ -216,6 +216,7 @@ CREATE TABLE `users` (
   `family_name` varchar(60) NOT NULL,
   `affiliation` varchar(255) DEFAULT NULL,
   `email` varchar(120) DEFAULT NULL,
+  `email_status` tinyint(1) DEFAULT 0,
   `expertise` varchar(255) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
   `registration_date` datetime DEFAULT NULL,
