@@ -96,13 +96,39 @@ class reviews_model extends Base_Model{
 	}
 
 	public function registerInterest($doi, $userId){
-		$sql = "UPDATE reviews SET interested = concat(interested, :user_id, ' ') WHERE DOI=:doi;";
+		// Check current interest
+		$interested = $this->fetchInterest($doi);
+		$interestArray = explode('.', $interested);
+
+		$interestedFlag = false;
+		foreach($interestArray as $user){
+			if ($user == $userId) $interestedFlag = true;
+		}
+
+		if ($interestedFlag) return true;
+
+		//Register interest if not yet done
+
+		$sql = "UPDATE reviews SET interested = concat(interested, :user_id, '.') WHERE DOI=:doi;";
 		$stmt = $this->db->prepare($sql);
 
 		$stmt->bindValue(":doi", "$doi");
 		$stmt->bindValue(":user_id", "$userId");
 
 		$stmt->execute();
+	}
+
+	public function fetchInterest($doi){
+		$sql = "SELECT interested FROM reviews WHERE DOI=:doi;";
+		$stmt = $this->db->prepare($sql);
+
+		$stmt->bindValue(":doi", "$doi");
+
+		$stmt->execute();
+
+		$interested = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+		return $interested[0];
 	}
 
 }

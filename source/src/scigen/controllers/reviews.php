@@ -105,13 +105,34 @@ class Reviews extends Base_Controller{
 
 			header("Location: ". BASE_URL . "login/index?message=" . urlencode("You must be loggedin to submit a report"));
 
-			return;
+			return 'Error: ' . USER_NOT_LOGGED_IN;
 		}
 		elseif (isset($_SESSION['doi'])){
 			$doi = $_SESSION['doi'];
 			$userId = Session::get('user_id');
 			$this->model->registerInterest($doi, $userId);
 		}
+	}
+
+	public function downvote(){}
+
+	public function countvote($doi, $userId = NULL){
+		$interested = $this->model->fetchInterest($doi);
+		if (empty($interested)) return false;
+		
+		$interestArray = explode('.', $interested);
+
+		$votes = count($interestArray);
+
+		if (!is_null($userId)){
+			$interestFlag = false;
+			foreach($interestArray as $vote){
+				if ($userId == $vote) $interestFlag = true;
+			}
+			return array($votes, $interestFlag);
+		}
+
+		return array($votes, false);
 	}
 	
 }
