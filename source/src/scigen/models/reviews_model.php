@@ -95,5 +95,15 @@ class reviews_model extends Base_Model{
 		$stmt->execute();
 	}
 
+	public function registerInterest($doi, $userId){
+		$sql = "UPDATE reviews SET interested = concat(interested, :user_id, ' ') WHERE DOI=:doi;";
+		$stmt = $this->db->prepare($sql);
+
+		$stmt->bindValue(":doi", "$doi");
+		$stmt->bindValue(":user_id", "$userId");
+
+		$stmt->execute();
+	}
+
 }
 ?>

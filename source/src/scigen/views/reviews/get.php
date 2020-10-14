@@ -45,8 +45,10 @@ else {
 		'<span class="w3-btn w3-theme">Login to suggest changes</span></a>';
 }
 ?>
+<!-----------    Rework this ------------------>
           <a href="'.BASE_URL.'papers/upvote?doi='.$this->doi.'">
           <span class="w3-btn w3-theme">I'm interested</span></a>
+<!--------------------------------------------->
         </form>
         </div>
 

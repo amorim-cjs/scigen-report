@@ -96,6 +96,23 @@ class Reviews extends Base_Controller{
 		
 	}
 
+	public function upvote(){
+		session_start();
+
+		if (!Session::get('loggedin')){
+			// Save current DOI
+			$_SESSION['doi'] = $_POST['doi'];
+
+			header("Location: ". BASE_URL . "login/index?message=" . urlencode("You must be loggedin to submit a report"));
+
+			return;
+		}
+		elseif (isset($_SESSION['doi'])){
+			$doi = $_SESSION['doi'];
+			$userId = Session::get('user_id');
+			$this->model->registerInterest($doi, $userId);
+		}
+	}
 	
 }
 
