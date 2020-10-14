@@ -167,7 +167,7 @@ function formatAuthors(){
 	document.getElementById('paper-info').style.height = h + summary.clientHeight - 20 + chart + "px";
 
   var chart = document.getElementById('rep-chart');
-  chart.style.paddingTop += 30 + "px";
+  chart.style.paddingTop += 60 + "px";
 
 }
 
@@ -200,6 +200,7 @@ function generateChart(){
     const fsize = width > 1200 || width < 600 ? 12 : 9;
     //ctx.style.width  = 400 + "px";
     //ctx.style.height = 400 + "px";
+
    const chart = new Chart(ctx, {
         type: 'polarArea',
 
@@ -222,7 +223,7 @@ function generateChart(){
                 borderColor: [
                  'rgb(5, 199, 32)',
                 'rgb(55, 199, 132)',
-                 'rgb(155, 255, 132)',
+                 'rgb(255, 245, 69)',
                 'rgb(255, 150, 132)',
                 'rgb(255, 99, 132)'
                  ],
@@ -247,10 +248,16 @@ function generateChart(){
                 },
                 tooltips: {
                            //bodyFontSize: fsize
+                },
+                scale:{
+                  ticks:{
+                    min: 0
+                  }
                 }
         }
     });
     
+
     //ctx.style.width  = 300 + "px";
     //ctx.style.height = 300 + "px";
     
