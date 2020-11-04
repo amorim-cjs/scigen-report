@@ -30,6 +30,9 @@
       <label>List of missing parameters (if any)</label>
       <input class="w3-input" name="missing_param" value="<?=$_POST['missing_param']?>" readonly>
 
+      <label>Data/Code link</label>
+      <input class="w3-input" name="data_code_link" value="<?=$_POST['data_code_link']?>" readonly>
+
       <label>Comments:</label>
       <textarea class="w3-input" name="review" readonly><?=$_POST['review']?></textarea>
 

@@ -40,6 +40,9 @@ if (isset($_POST['edit'])){
       <label> If there are missing parameters for reproduction of results, which ones? (Leave blank if none, max. 250 characters)</label>
       <input class="w3-input" name="missing_param" maxlength="250" value="<?= $_POST['missing_param'] ?>" placeholder="E.g.: Parameter 'alpha' is said to be between 100 and 1000, but which value is used in fig. 2 is not clear">
 
+      <label> If there is a data/code, please add it here.</label>
+      <input class="w3-input" name="data_code_link" value="<?=$_POST['data_code_link']?>" placeholder="E.g.: https://zenodo.org/record/XXXXXXX - where multiple Xs stand for the Zenodo record number">
+
       <label>Comments (max. 500 characters)</label>
       <textarea class="w3-input" name=review maxlength="500"><?= $_POST['review'] ?></textarea>
 

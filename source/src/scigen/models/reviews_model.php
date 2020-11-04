@@ -7,7 +7,7 @@ class reviews_model extends Base_Model{
 
 	public function registerReview($rev){
 		$sqlString = "SELECT fn_addReview(:username, :doi, :reproducible, :review,
-		:pvalue, :corr, :acc, :missing_param);";
+		:pvalue, :corr, :acc, :missing_param, :data_code_link);";
 
 		$stmt = $this->db->prepare($sqlString);
 
@@ -30,7 +30,7 @@ class reviews_model extends Base_Model{
 
 	public function updateReview($rev){
 		$sqlString = "SELECT fn_editReview(:review_id, :username, :doi, :reproducible, :review,
-		:pvalue, :corr, :acc, :missing_param);";
+		:pvalue, :corr, :acc, :missing_param, :data_code_link);";
 
 		$stmt = $this->db->prepare($sqlString);
 		
