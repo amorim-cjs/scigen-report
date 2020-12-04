@@ -3,6 +3,13 @@
 <div id="getReviews" style="position:absolute; width:100%;">
 
 <?php 
+if (isset($this->id)){
+	echo "User has been successfully linked to a paper review";
+	header("Location: ".BASE_URL."reviews/get?doi=". $_POST['doi']);
+}
+if (isset($_POST['edit'])){
+	$this->exist = true;
+}
 //$paper = $this->paper_data;
 if(isset($this->paper_data)):
 ?>
@@ -106,6 +113,60 @@ else {
     </div>
   </div>
 
+<div id="rev-sub" class="w3-panel w3-display-container" style="display:none;">
+  <form class="w3-container w3-theme-l5 "  style="max-width:1000px;margin:auto;padding-bottom:50px;" action="confirm" method="post">
+<label class="w3-text-red w3-large"><?=$this->message?></label> 
+ <ul>
+  <h3>Add a new report</h3>
+      <input type="hidden" class="w3-input" name="doi" placeholder="DOI" value=<?= $this->doi?> readonly>
+      <input name="username" type="hidden" value=<?= $_SESSION['username']?>>
+      <br><label> Can you reproduce this paper's the result(s)?</label>
+      <p><input class="w3-radio" type="radio" name="reproducible" value="Y" 
+	<?php if($_POST['reproducible'] == 'Y'):?> checked <?php endif;?>> Yes</p>
+      <p><input class="w3-radio" type="radio" name="reproducible" value="T"
+      <?php if($_POST['reproducible'] == 'T'):?> checked <?php endif;?>> Almost/Tricky (please explain)</p>
+      <p><input class="w3-radio" type="radio" name="reproducible" value="K" 
+	<?php if($_POST['reproducible'] == 'K'):?> checked <?php endif;?>> Partially (please explain)</p>
+      <p><input class="w3-radio" type="radio" name="reproducible" value="P"
+      <?php if($_POST['reproducible'] == 'P'):?> checked <?php endif;?>> Hardly (please explain)</p>
+      <p><input class="w3-radio" type="radio" name="reproducible" value="N"
+      <?php if($_POST['reproducible'] == 'N'):?> checked <?php endif;?>> No </p><br><br>
+
+      <label> Main <b>p-value</b>? (optional)</label>
+      <input class="w3-input" name="pvalue" type="number" min="0" max="1" step="0.0001" <?php if (isset($_POST['pvalue'])) echo 'value="'. $_POST['pvalue'] .'"';?> placeholder="0.057">
+
+      <label> Main <b>correlation</b> as a result? (optional)</label>
+      <input class="w3-input" name="corr" type="number" min="-1" max="1" step="0.0001" <?php if (isset($_POST['corr'])) echo 'value="'. $_POST['corr'].'"' ;?> placeholder="-0.0874">
+
+      <label> Estimate Accuracy (optional)</label>
+      <input class="w3-input" name="acc" type="number" min="0" max="1" step="0.0001" <?php if (isset($_POST['acc'])) echo 'value="'. $_POST['acc'] . '"'; ?> placeholder="0.986">
+
+      <label> Missing parameters (Leave blank if none, max. 250 characters)</label>
+      <input class="w3-input" name="missing_param" maxlength="250" value="<?= $_POST['missing_param'] ?>" placeholder="E.g.: Parameter 'alpha' is said to be between 100 and 1000, but which value is used in fig. 2 is not clear">
+
+      <label>Comments (max. 500 characters)</label>
+      <textarea class="w3-input" name=review maxlength="500"><?= $_POST['review'] ?></textarea>
+
+<?php if (!$this->exist && FALSE): //currently deactivated ?>
+      <label>If you want, we can send an email to the corresponding author in your behalf, letting them know about your reproducibility efforts. Just inform the author's email below, and we take care of the rest! <br>(leave it blank if you don't want to inform the author).</label>
+      <input class="w3-input" type="email" name="author_email" maxlength="120" value="<?= $_POST['author_email'] ?>" placeholder="author@reproducible.edu">
+<?php endif; ?>
+      <h3><b>NOTICE:</b> BY SUBMITTING THIS FORM, 
+      YOU CERTIFY THAT YOU, OR A GROUP YOU REPRESENT OR BELONG TO MADE REASONABLE EFFORTS TO REPRODUCE THIS PAPER.</h3>
+
+      <input class="w3-btn w3-theme-d3" type="submit" name="confirm"  value="Confirm review">
+	<?php if ($this->exist): ?>
+	  <input type=hidden name="edit" value="true">
+	  <input type=hidden name="review_id" value=<?=$_POST['review_id']?>>
+	<?php endif; ?>
+
+      <!--<a class="w3-btn w3-theme-l1" href="<?=BASE_URL.'reviews/get?doi='.$_POST['doi']?>">Cancel</a>-->
+      <span onclick="document.getElementById('rev-sub').style.display='none'; document.getElementById('add-btn').style.display='block';" 
+      class="w3-btn w3-theme-l1">Cancel</span>
+
+  </ul>
+</form>
+</div>
 
 <!-- Reviews input one by one -->
   <div id="reviews" class="w3-panel"  >
@@ -146,13 +207,15 @@ foreach ($this->reviews_data as $review) :
 <?php if (!$userHasReviewed && isset($this->paper_data)):?>
   <div id="add-review" class="w3-row-padding" style="width:99%;max-width:1600px;max-height:62px;margin:auto;top:-235px;">
     <div class="w3-col">
-    <form action="../reviews/register" method="post"  
-	<?php if ($_SESSION['email_status'] != 'verified') 
-echo 'onsubmit="alert('."'You must login with a verified email address to submit reports.'".'); return false;"';?>
-    >
-	<input type="hidden" name="doi" value="<?=$this->doi?>">
-	<input class="w3-btn w3-block w3-deep-orange w3-xlarge " style="border-radius:25px;max-width:300px;max-height:62px;margin:auto;" type="submit" name="add" value="Add your report">
-      </form>
+	<!--<input type="hidden" name="doi" value="<?=$this->doi?>">-->
+  <button id="add-btn" class="w3-btn w3-block w3-deep-orange w3-xlarge " style="border-radius:25px;max-width:300px;max-height:62px;margin:auto;" type="submit" name="add"
+  <?php if ($_SESSION['email_status'] != 'verified') {
+echo 'onclick="alert('."'You must login with a verified email address to submit reports.'".'); return false;"';
+  } else {
+    echo 'onclick="document.getElementById('. "'rev-sub'" . ").style.display='block';
+    document.getElementById('add-btn').style.display='none';" . '"';
+  }?>>
+Add your report</button>
     </div>
 
   </div>
