@@ -71,7 +71,7 @@ class reviews_model extends Base_Model{
 	public function getPaperInfo($doi){
 		$sql = "SELECT title, authors, 
 			journal, year, volume, issue, page,
-			rep_success, rep_fail, tricky, possible, partial
+			rep_success, rep_fail, tricky, possible, partial, interested
 			FROM papers WHERE doi=:doi";
 
 		$stmt = $this->db->prepare($sql);
@@ -81,6 +81,9 @@ class reviews_model extends Base_Model{
 		$stmt->execute();
 
 		$paper = $stmt->fetch(PDO::FETCH_ASSOC);
+		$interest = explode(',', $paper['interested']);
+		$paper['interest'] = count($interest) - 1;
+		//unset($paper['interested']);
 
 		return $paper;
 	}
@@ -95,41 +98,6 @@ class reviews_model extends Base_Model{
 		$stmt->execute();
 	}
 
-	public function registerInterest($doi, $userId){
-		// Check current interest
-		$interested = $this->fetchInterest($doi);
-		$interestArray = explode('.', $interested);
-
-		$interestedFlag = false;
-		foreach($interestArray as $user){
-			if ($user == $userId) $interestedFlag = true;
-		}
-
-		if ($interestedFlag) return true;
-
-		//Register interest if not yet done
-
-		$sql = "UPDATE reviews SET interested = concat(interested, :user_id, '.') WHERE DOI=:doi;";
-		$stmt = $this->db->prepare($sql);
-
-		$stmt->bindValue(":doi", "$doi");
-		$stmt->bindValue(":user_id", "$userId");
-
-		$stmt->execute();
-	}
-
-	public function fetchInterest($doi){
-		$sql = "SELECT interested FROM reviews WHERE DOI=:doi;";
-		$stmt = $this->db->prepare($sql);
-
-		$stmt->bindValue(":doi", "$doi");
-
-		$stmt->execute();
-
-		$interested = $stmt->fetchAll(PDO::FETCH_COLUMN);
-
-		return $interested[0];
-	}
 
 }
 ?>

@@ -32,7 +32,7 @@ if(isset($this->paper_data)):
 ?>      </h3>
 
         <div id="correct-info">
-          <form action="/papers/update" method="post">
+          <form action="/papers/update" method="post" >
           <input type="hidden" name="doi" value="<?=$this->doi?>">
           <input type="hidden" name="title" value="<?=$paper['title']?>">
           <input type="hidden" name="author" value="<?=$paper['authors']?>">
@@ -51,20 +51,29 @@ else {
 	echo '<a href="'.BASE_URL.'login/index?doi='.$this->doi.'">',
 		'<span class="w3-btn w3-theme">Login to suggest changes</span></a>';
 }
-?>
+?></form>
 <!-----------    Rework this ------------------>
-          <a href="<?=BASE_URL.'papers/upvote?doi='.$this->doi?>">
-          <span class="w3-btn w3-theme">I'm interested</span></a>
-<!--------------------------------------------->
-        </form>
-        </div>
+        
+<?php if ($_SESSION['loggedin'] && !$this->upvoted):?>
+     <button id="vote-btn" class="w3-btn w3-theme" onclick="switchInterest();" style="border-radius:25px;">
+     + <?=$paper['interest']?></button>
+<?php elseif ($_SESSION['loggedin'] && $this->upvoted):?>
+    <button id="vote-btn" class="w3-btn w3-theme-l5" onclick="switchInterest();" style="border-radius:25px;">
+    + <?=$paper['interest']?></button>
+<?php else:?>
+  <span class="w3-theme-l4" style="padding:8px 16px;border-radius:25px;">+ <?=$paper['interest']?></span>
+<?php endif; ?>
 
+<!--------------------------------------------->
+        
+        </div>
+<!--------------Tags for the future------------------
       <div id="tags" style="padding-top:25px;">
         <span class="w3-button w3-theme-l2" style="height: 30px;">Biology</span>
         <span class="w3-button w3-theme-l2" style="height: 30px;">Biomolecule</span>
         <span class="w3-button w3-theme-l2" style="height: 30px;">DNA</span>
       </div>
-
+--------------------------------------------->
       </div>
 <div id="rep-chart" class="w3-col m2">
 <canvas id="repCanvas" class="chartjs" width="400" height="400" style="float: right;"></canvas>
@@ -215,7 +224,7 @@ echo 'onclick="alert('."'You must login with a verified email address to submit 
     echo 'onclick="document.getElementById('. "'rev-sub'" . ").style.display='block';
     document.getElementById('add-btn').style.display='none';" . '"';
   }?>>
-Add your report</button>
+Add your report </button>
     </div>
 
   </div>

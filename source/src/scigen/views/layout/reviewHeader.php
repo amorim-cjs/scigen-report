@@ -69,6 +69,10 @@ html,body{
     width:100%;
     text-align:center;
 }
+
+form {
+  display: inline;
+}
 </style>
 
 <script>
@@ -154,6 +158,23 @@ h2{font-size:24px}h3{font-size:21px}h4{font-size:18px}h5{font-size:16px}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="<?=BASE_URL . 'assets/scripts/clamp.js'?>"></script>
 <script>
+function switchInterest(){
+  const xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200){
+      console.log(this.responseText);
+      var response = JSON.parse(this.responseText);
+      var bstr = '+ ' + response.count;
+      document.getElementById('vote-btn').className = response.interest ?
+        "w3-btn w3-theme-l5" : "w3-btn w3-theme";
+      document.getElementById('vote-btn').innerHTML = bstr;
+    } 
+  };
+  xhr.open("GET", "/papers/switchVote?doi=" + "<?=urlencode($_GET['doi'])?>", true);
+  xhr.send();
+
+}
+
 function formatAuthors(){
 	var header = document.getElementById('paper-title');
 	const lines = screen.height < 450 ? 2 : 3;

@@ -49,5 +49,69 @@ class Papers_Model extends Base_Model{
 			->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	public function registerInterest($doi, $userId){
+		// Check current interest
+		$interestedFlag = $this->isInterested($doi, $userId);
+
+		if ($interestedFlag) return true;
+
+		//Register interest in DB
+		$sql = "UPDATE papers SET interested = concat(interested, :user_id, ',') WHERE DOI=:doi;";
+		$stmt = $this->db->prepare($sql);
+
+		$stmt->bindValue(":doi", "$doi");
+		$stmt->bindValue(":user_id", "$userId");
+
+		$stmt->execute();
+	}
+
+	public function unregisterInterest($doi, $userId){
+		// Get interested users' list
+		$interestedUsers = $this->fetchInterest($doi);
+		$interestArray = explode(',', $interestedUsers);
+
+		$newInterestedArray = array_diff($interestArray, array($userId));
+		$newInterested = implode(',', $newInterestedArray);
+
+		// Send to DB
+		$sql = "UPDATE papers SET interested = :interested WHERE DOI=:doi;";
+		$stmt = $this->db->prepare($sql);
+
+		$stmt->bindValue(":doi", "$doi");
+		$stmt->bindValue(":interested", "$newInterested");
+
+		$stmt->execute();
+
+	}
+
+	public function fetchInterest($doi){
+		$sql = "SELECT interested FROM papers WHERE DOI=:doi;";
+		$stmt = $this->db->prepare($sql);
+
+		$stmt->bindValue(":doi", "$doi");
+
+		$stmt->execute();
+
+		$interested = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+		return $interested[0];
+	}
+
+	public function isInterested($doi, $userId){
+		// Check current interest
+		$interestedUsers = $this->fetchInterest($doi);
+		$interestArray = explode(',', $interestedUsers);
+
+		$interestedFlag = in_array($userId, $interestArray);
+
+		return $interestedFlag;
+	}
+
+	private function countInterested($doi){
+		$interestedUsers = $this->fetchInterest($doi);
+		$interestArray = explode(',', $interestedUsers);
+
+		return count($interestArray) - 1;
+	}
 }
 ?>
