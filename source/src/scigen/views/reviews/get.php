@@ -52,7 +52,7 @@ else {
 		'<span class="w3-btn w3-theme">Login to suggest changes</span></a>';
 }
 ?></form>
-<!-----------    Rework this ------------------>
+<!-----------   Interest  ------------------>
         
 <?php if ($_SESSION['loggedin'] && !$this->upvoted):?>
      <button id="vote-btn" class="w3-btn w3-theme" onclick="switchInterest();" style="border-radius:25px;">
@@ -123,10 +123,11 @@ else {
   </div>
 
 <div id="rev-sub" class="w3-panel w3-display-container" style="display:none;">
-  <form class="w3-container w3-theme-l5 "  style="max-width:1000px;margin:auto;padding-bottom:50px;" action="confirm" method="post">
+  <form class="w3-container w3-row w3-theme-l5 "  style="max-width:1000px;margin:auto;padding-bottom:50px;" action="confirm" method="post">
 <label class="w3-text-red w3-large"><?=$this->message?></label> 
- <ul>
+ 
   <h3>Add a new report</h3>
+  <div class="w3-col m6 w3-padding">
       <input type="hidden" class="w3-input" name="doi" placeholder="DOI" value=<?= $this->doi?> readonly>
       <input name="username" type="hidden" value=<?= $_SESSION['username']?>>
       <br><label> Can you reproduce this paper's the result(s)?</label>
@@ -140,14 +141,15 @@ else {
       <?php if($_POST['reproducible'] == 'P'):?> checked <?php endif;?>> Hardly (please explain)</p>
       <p><input class="w3-radio" type="radio" name="reproducible" value="N"
       <?php if($_POST['reproducible'] == 'N'):?> checked <?php endif;?>> No </p><br><br>
-
+      </div>
+      <div class="w3-col m6 3-padding">
       <label> Main <b>p-value</b>? (optional)</label>
       <input class="w3-input" name="pvalue" type="number" min="0" max="1" step="0.0001" <?php if (isset($_POST['pvalue'])) echo 'value="'. $_POST['pvalue'] .'"';?> placeholder="0.057">
 
       <label> Main <b>correlation</b> as a result? (optional)</label>
       <input class="w3-input" name="corr" type="number" min="-1" max="1" step="0.0001" <?php if (isset($_POST['corr'])) echo 'value="'. $_POST['corr'].'"' ;?> placeholder="-0.0874">
 
-      <label> Estimate Accuracy (optional)</label>
+      <label> Estimate <b>Accuracy</b> (optional)</label>
       <input class="w3-input" name="acc" type="number" min="0" max="1" step="0.0001" <?php if (isset($_POST['acc'])) echo 'value="'. $_POST['acc'] . '"'; ?> placeholder="0.986">
 
       <label> Missing parameters (Leave blank if none, max. 250 characters)</label>
@@ -160,6 +162,7 @@ else {
       <label>If you want, we can send an email to the corresponding author in your behalf, letting them know about your reproducibility efforts. Just inform the author's email below, and we take care of the rest! <br>(leave it blank if you don't want to inform the author).</label>
       <input class="w3-input" type="email" name="author_email" maxlength="120" value="<?= $_POST['author_email'] ?>" placeholder="author@reproducible.edu">
 <?php endif; ?>
+      </div>
       <h3><b>NOTICE:</b> BY SUBMITTING THIS FORM, 
       YOU CERTIFY THAT YOU, OR A GROUP YOU REPRESENT OR BELONG TO MADE REASONABLE EFFORTS TO REPRODUCE THIS PAPER.</h3>
 
@@ -173,7 +176,7 @@ else {
       <span onclick="document.getElementById('rev-sub').style.display='none'; document.getElementById('add-btn').style.display='block';" 
       class="w3-btn w3-theme-l1">Cancel</span>
 
-  </ul>
+  
 </form>
 </div>
 
