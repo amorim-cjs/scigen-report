@@ -9,4 +9,7 @@ define('DB_NAME', 'PeerRep');
 define('DB_USER', 'root');
 define('DB_PWD', 'topsecret');
 
+// error codes
+define('USER_NOT_LOGGED_IN', '10');
+
 ?>

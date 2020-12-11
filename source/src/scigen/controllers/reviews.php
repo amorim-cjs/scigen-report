@@ -44,7 +44,7 @@ class Reviews extends Base_Controller{
 		elseif (isset($_POST['delete'])){
 			$this->model->deleteReview($_POST['review_id']);
 			header('Location: ' . BASE_URL . 'reviews/get?doi=' . $_POST['doi']);
-			return 204;
+			http_response_code(204);
 		}
 		elseif (isset($_POST['cancel'])){
 			header('Location: ' . BASE_URL . 'reviews/get?doi=' . $_POST['doi']);
@@ -80,6 +80,8 @@ class Reviews extends Base_Controller{
 	}
 
 	public function get($doi0=NULL, $doi1=NULL){
+		session_start();
+
 		if (!is_null($doi0) && !is_null($doi1)) $_GET['doi'] = $doi0."/".$doi1;
 		if (isset($_GET['doi']) && !empty($_GET['doi'])){
 			$this->view->doi = $_GET['doi'];
@@ -88,6 +90,11 @@ class Reviews extends Base_Controller{
 
 			$this->view->paper_data =
 				$this->model->getPaperInfo($_GET['doi']);
+
+			if (Session::get('loggedin')){
+				$this->view->upvoted = $this->isInterested($this->view->paper_data['interested'],$_SESSION['user_id']);
+			}
+
 			$this->view->render('reviews/get');
 		}
 		else{
@@ -96,22 +103,9 @@ class Reviews extends Base_Controller{
 		
 	}
 
-	public function upvote(){
-		session_start();
-
-		if (!Session::get('loggedin')){
-			// Save current DOI
-			$_SESSION['doi'] = $_POST['doi'];
-
-			header("Location: ". BASE_URL . "login/index?message=" . urlencode("You must be loggedin to submit a report"));
-
-			return;
-		}
-		elseif (isset($_SESSION['doi'])){
-			$doi = $_SESSION['doi'];
-			$userId = Session::get('user_id');
-			$this->model->registerInterest($doi, $userId);
-		}
+	private function isInterested($interestString, $userId){
+		$interestArray = explode(',', $interestString);
+		return in_array($userId, $interestArray);
 	}
 	
 }
