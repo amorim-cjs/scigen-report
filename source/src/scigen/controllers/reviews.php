@@ -26,6 +26,7 @@ class Reviews extends Base_Controller{
 
 		if (isset($_POST['submit']) && $_SESSION['email_status'] == 'verified'){
 			unset($_POST['submit']);
+			$_POST['data_code_link'] = $this->cleanInput($_POST['data_code_link']);
 			$this->view->id = $this->model->registerReview($_POST);
 		}
 		elseif (isset($_POST['edit'])){
@@ -108,6 +109,10 @@ class Reviews extends Base_Controller{
 		return in_array($userId, $interestArray);
 	}
 	
+	private function cleanInput($input){
+		$inputArray = explode(" ", $input);
+		return implode(',', $inputArray);
+	}
 }
 
 ?>
