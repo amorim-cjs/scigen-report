@@ -59,7 +59,9 @@ class Reviews extends Base_Controller{
 
 		$this->view->role = $role ? $role :'';
 		$this->view->exist = isset($_POST['exist']) ? $_POST['exist'] : NULL;
-		$this->view->render('reviews/register');
+
+		header('Location: ' . BASE_URL . 'reviews/get?doi=' . $_POST['doi']);
+		
 	}
 
 	public function confirm(){

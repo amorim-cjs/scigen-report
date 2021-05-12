@@ -31,7 +31,8 @@ class Reviews_View extends Base_View{
 		if ($review['pvalue'] != 0) echo ", obtaining p-value = " . $review['pvalue'];
 		if ($review['corr'] != 0) echo ", (main) correlation = " . $review['corr'];
 		if ($review['acc'] != 0) echo ", estimated accuracy = " . $review['acc'];
-		if (!empty($review['missing_param'])) "reporting missing information: " . $review['missing_param'];
+		if (!empty($review['missing_param'])) echo "<br>Reporting missing information: " . $review['missing_param'];
+		if (!empty($review['code_data_link'])) echo "<br>Data: " . $review['code_data_link'];
 
 		echo "</h4>";
 
