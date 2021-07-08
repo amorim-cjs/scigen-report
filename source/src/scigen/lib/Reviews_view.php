@@ -28,15 +28,16 @@ class Reviews_View extends Base_View{
 		echo '&nbsp; <button class="w3-btn w3-theme-l3 w3-small" onclick="copyLink(\''. $tag .'\');">
 			Copy link</button>';
 
-		if ($review['pvalue'] != 0) echo ", obtaining p-value = " . $review['pvalue'];
-		if ($review['corr'] != 0) echo ", (main) correlation = " . $review['corr'];
-		if ($review['acc'] != 0) echo ", estimated accuracy = " . $review['acc'];
-		if (!empty($review['missing_param'])) "reporting missing information: " . $review['missing_param'];
+		if ($review['pvalue'] != 0) echo " obtaining p-value = " . $review['pvalue'];
+		if ($review['corr'] != 0) echo " (main) correlation = " . $review['corr'];
+		if ($review['acc'] != 0) echo " estimated accuracy = " . $review['acc'];
+		if (!empty($review['missing_param'])) echo "<br>Reporting missing information: " . $review['missing_param'];
+		if (!empty($review['code_data_link'])) echo "<br>Data: " . $review['code_data_link'];
 
 		echo "</h4>";
 
 	}
-	public function report($status){
+	private function report($status){
 		switch ($status){
 		case 'Y':
 			echo "<b>Succeeded</b> in replicating results";

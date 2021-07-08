@@ -50,7 +50,7 @@ CREATE TABLE `papers` (
 
 LOCK TABLES `papers` WRITE;
 /*!40000 ALTER TABLE `papers` DISABLE KEYS */;
-INSERT INTO `papers` VALUES (2,'10.1126/science.288.5466.656','A Superconducting Field-Effect Switch',NULL,NULL,'J. H. Schön; Ch. Kloc; R. C. Haddon; B. Batlogg','Science',2000,288,'5466',0,1,0,0,NULL,0),(5,'10.1103/physicsphysiquefizika.1.195','On the Einstein Podolsky Rosen paradox',NULL,NULL,'J. S. Bell','Physics Physique Fizika',1964,1,'195-200',0,0,0,0,3,0),(6,'10.1038/171737a0','Molecular Structure of Nucleic Acids: A Structure for Deoxyribose Nucleic Acid',NULL,NULL,'J. D. WATSON & F. H. C. CRICK','Nature',1953,171,'737-738',0,0,0,0,4356,0),(7,'10.1103/physrevb.93.104408','Intrinsic magnetization of antiferromagnetic textures',NULL,NULL,'Erlend G. TVETEN & Tristan MÃ¼LLER & Jacob LINDER & Arne BRATAAS','Physical Review B',2016,93,'',0,0,0,0,10,0),(11,'10.5244/c.2.23','A Combined Corner and Edge Detector',NULL,NULL,'C. HARRIS & M. STEPHENS',' Proceedings of the Alvey Vision Conference',1988,0,'23.1-23.6',0,0,0,0,0,0),(12,'10.1103/physrevlett.121.121801','Observation of Higgs Boson Decay to Bottom Quarks',NULL,NULL,'A.â€‰M. SIRUNYAN et al.','Physical Review Letters',2018,121,'0',0,0,0,0,12,0),(13,'10.1016/j.biocon.2004.03.029','Post-fire survival and reproduction of rehabilitated and unburnt koalas',NULL,NULL,'Daniel LUNNEY & Shaan M. GRESSER & Paul S. MAHON & Alison MATTHEWS','Biological Conservation',2004,120,'567-575',0,0,0,0,4,0);
+INSERT INTO `papers` VALUES (2,'10.1126/science.288.5466.656','A Superconducting Field-Effect Switch',NULL,NULL,'J. H. Schön; Ch. Kloc; R. C. Haddon; B. Batlogg','Science',2000,288,'5466',0,1,0,0,NULL,0),(5,'10.1103/physicsphysiquefizika.1.195','On the Einstein Podolsky Rosen paradox',NULL,NULL,'J. S. Bell','Physics Physique Fizika',1964,1,'195-200',0,0,0,0,3,0),(6,'10.1038/171737a0','Molecular Structure of Nucleic Acids: A Structure for Deoxyribose Nucleic Acid',NULL,NULL,'J. D. WATSON & F. H. C. CRICK','Nature',1953,171,'737-738',3,1,2,2,4356,1),(7,'10.1103/physrevb.93.104408','Intrinsic magnetization of antiferromagnetic textures',NULL,NULL,'Erlend G. TVETEN & Tristan MÃ¼LLER & Jacob LINDER & Arne BRATAAS','Physical Review B',2016,93,'',0,0,0,0,10,0),(11,'10.5244/c.2.23','A Combined Corner and Edge Detector',NULL,NULL,'C. HARRIS & M. STEPHENS',' Proceedings of the Alvey Vision Conference',1988,0,'23.1-23.6',0,0,0,0,0,0),(12,'10.1103/physrevlett.121.121801','Observation of Higgs Boson Decay to Bottom Quarks',NULL,NULL,'A.â€‰M. SIRUNYAN et al.','Physical Review Letters',2018,121,'0',0,0,0,0,12,0),(13,'10.1016/j.biocon.2004.03.029','Post-fire survival and reproduction of rehabilitated and unburnt koalas',NULL,NULL,'Daniel LUNNEY & Shaan M. GRESSER & Paul S. MAHON & Alison MATTHEWS','Biological Conservation',2004,120,'567-575',0,0,0,0,4,0);
 /*!40000 ALTER TABLE `papers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,6 +108,7 @@ CREATE TABLE `reviews` (
 
 LOCK TABLES `reviews` WRITE;
 /*!40000 ALTER TABLE `reviews` DISABLE KEYS */;
+INSERT INTO `reviews` VALUES (1, 'test1', 1, 6, 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL),(2, 'test1', 1, 6, 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL),(3, 'test1', 1, 6, 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL),(4, 'test2', 2, 6, 'T', NULL, NULL, NULL, NULL, NULL, NULL, NULL), (5, 'test2', 2, 6, 'T', NULL, NULL, NULL, NULL, NULL, NULL, NULL), (6, 'test3', 3, 6, 'P', NULL, NULL, NULL, NULL, NULL, NULL, NULL), (7, 'test4', 4, 6, 'N', NULL, NULL, NULL, NULL, NULL, NULL, NULL), (8, 'test5', 5, 6, 'K', NULL, NULL, NULL, NULL, NULL, NULL, NULL),(9, 'test5', 5, 6, 'K', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `reviews` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -215,6 +216,7 @@ CREATE TABLE `users` (
   `family_name` varchar(60) NOT NULL,
   `affiliation` varchar(255) DEFAULT NULL,
   `email` varchar(120) DEFAULT NULL,
+  `email_status` tinyint(1) DEFAULT 0,
   `expertise` varchar(255) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
   `registration_date` datetime DEFAULT NULL,
@@ -236,6 +238,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (10, 'guest', 'Guest', 'GUEST', NULL, NULL, 0, NULL, '$2y$10$shhhcd8w34NGeiR6k4AY7.XN520j/mVTXO3mZo1qePGIKRoiurHCa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 

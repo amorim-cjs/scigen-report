@@ -13,7 +13,7 @@ html,body{
   top:50px;
   bottom:25px;
   height: 90%;
-	background-color: rgb(230,230,230);
+	background-color: rgb(245,245,245);
 }
 
 .box{
@@ -68,6 +68,10 @@ html,body{
     bottom:0;
     width:100%;
     text-align:center;
+}
+
+form {
+  display: inline;
 }
 </style>
 
@@ -151,19 +155,40 @@ h2{font-size:24px}h3{font-size:21px}h4{font-size:18px}h5{font-size:16px}
 }
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="<?=BASE_URL . 'assets/scripts/clamp.js'?>"></script>
 <script>
+function switchInterest(){
+  const xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200){
+      console.log(this.responseText);
+      var response = JSON.parse(this.responseText);
+      var bstr = '+ ' + response.count;
+      document.getElementById('vote-btn').className = response.interest ?
+        "w3-btn w3-theme-l5" : "w3-btn w3-theme";
+      document.getElementById('vote-btn').innerHTML = bstr;
+    } 
+  };
+  xhr.open("GET", "/papers/switchVote?doi=" + "<?=urlencode($_GET['doi'])?>", true);
+  xhr.send();
+
+}
+
 function formatAuthors(){
 	var header = document.getElementById('paper-title');
 	const lines = screen.height < 450 ? 2 : 3;
 	$clamp(header, {clamp: lines});
 	
 	var h = header.clientHeight;
-	var authors =  document.getElementById('paper-authors');
-	authors.style.top = h - 70 + "px";
+	var summary = document.getElementById('paper-summary');
+	summary.style.top = h - 70 + "px";
 	document.getElementById('paper').style.right = "100%";
-	document.getElementById('paper-info').style.height = h + authors.clientHeight - 20 + "px";
+    const chartHeight = document.getElementById('repCanvas').style.height;
+	document.getElementById('paper-info').style.height = h + summary.clientHeight - 20 + chart + "px";
 
+  var chart = document.getElementById('rep-chart');
+  chart.style.paddingTop += 60 + "px";
 
 }
 
@@ -185,15 +210,89 @@ function copyLink(ref){
 	document.execCommand("copy");
 	document.body.removeChild(el);
 	} 
- 
+}
+<?php $paper = $this->paper_data;?>
+function generateChart(){
+    const ctx = document.getElementById('repCanvas');
+    var width =  window.innerWidth
+    || document.documentElement.clientWidth
+    || document.body.clientWidth;
+    const show = width > 1000 || width < 600;
+    const fsize = width > 1200 || width < 600 ? 12 : 9;
+    //ctx.style.width  = 400 + "px";
+    //ctx.style.height = 400 + "px";
+
+   const chart = new Chart(ctx, {
+        type: 'polarArea',
+
+        data: {
+            labels: ['Yes', 'Almost', 'Partially', 'Hardly', 'No'],
+            datasets: [{
+                //label: 'Reproducibility reports',
+                backgroundColor: [
+                          /*'rgb(0, 118, 106)',
+                         'rgb(0, 133, 120)',
+                          'rgb(0, 220, 198)',
+                         'rgb(38, 255, 233)',
+                         'rgb(110, 255, 240)'*/
+                            'rgb(5, 199, 32)',
+                           'rgb(55, 199, 132)',
+                            'rgb(255, 245, 69)',
+                           'rgb(255, 150, 132)',
+                           'rgb(255, 99, 132)'
+                          ],
+                borderColor: [
+                 'rgb(5, 199, 32)',
+                'rgb(55, 199, 132)',
+                 'rgb(255, 245, 69)',
+                'rgb(255, 150, 132)',
+                'rgb(255, 99, 132)'
+                 ],
+                data: [ <?=$paper['rep_success'] - $paper['tricky'] - $paper['partial']?>,
+                         <?=$paper['tricky']?>,
+                         <?=$paper['partial']?>,
+                         <?=$paper['possible']?>,
+                         <?=$paper['rep_fail'] - $paper['possible']?>]
+                //data: [0, 0, 0, 1, 3],
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+                legend: {
+                           display: show,
+                           position : 'bottom',
+                           labels: {
+                           boxWidth : 10,
+                           fontSize : fsize
+                           }
+                },
+                tooltips: {
+                           //bodyFontSize: fsize
+                },
+                scale:{
+                  ticks:{
+                    min: 0
+                  }
+                }
+        }
+    });
+    
+
+    //ctx.style.width  = 300 + "px";
+    //ctx.style.height = 300 + "px";
+    
+    //var sum = document.getElementById('paper-info');
+    //sum.style.height += ctx.style.height + 100;
+    
 }
 </script>
 
 
 </head>
-<body onload="formatAuthors();" onresize="formatAuthors();">
+<body onload="formatAuthors(); " onresize="formatAuthors();generateChart();">
 
-<div class="w3-bar w3-theme-l4" style="position:fixed; top: 0px; z-index: 2;min-height: 70px;">
+<div class="w3-bar w3-theme-light" style="position:fixed; top: 0px; z-index: 2;min-height: 70px;">
   <div id="logo" class="w3-left" style="padding-left:8px;" >
   <p><a class=" w3-center" href="<?=BASE_URL?>"><img src="<?php echo BASE_URL. 'assets/images/logo_title.png';?>" class="w3-image" width="125" alt="SciGen.Report"></a></p>
   </div>
